@@ -19,9 +19,26 @@ flutter:
 dependencies:
   flutter:
     sdk: flutter
-  google_maps_flutter_android: ^2.1.10
-  google_maps_flutter_ios: ^2.1.10
-  google_maps_flutter_platform_interface: ^2.2.1
+# google_maps_flutter_android: ^2.1.10
+  google_maps_flutter_android:
+    git:
+      url: https://github.com/rokwire/packages.git
+      path: packages/google_maps_flutter/google_maps_flutter_android
+      ref: google_maps_flutter-v2.2.5
+
+# google_maps_flutter_ios: ^2.1.10
+  google_maps_flutter_ios:
+    git:
+      url: https://github.com/rokwire/packages.git
+      path: packages/google_maps_flutter/google_maps_flutter_ios
+      ref: google_maps_flutter-v2.2.5
+
+# google_maps_flutter_platform_interface: ^2.2.1
+  google_maps_flutter_platform_interface:
+    git:
+      url: https://github.com/rokwire/packages.git
+      path: packages/google_maps_flutter/google_maps_flutter_platform_interface
+      ref: google_maps_flutter-v2.2.5
 
 dev_dependencies:
   flutter_test:
