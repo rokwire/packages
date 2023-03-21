@@ -24,7 +24,7 @@ dependencies:
     git:
       url: https://github.com/rokwire/packages.git
       path: packages/google_maps_flutter/google_maps_flutter_platform_interface
-      ref: google_maps_flutter-v2.2.5
+      ref: google_maps_flutter/link-to-rokwire-fork
   stream_transform: ^2.0.0
 
 dev_dependencies:
