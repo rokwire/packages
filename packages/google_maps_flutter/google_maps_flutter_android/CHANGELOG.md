@@ -1,3 +1,7 @@
+## NEXT
+
+* Add GoogleMap.OnPoiClickListener
+
 ## 2.4.7
 
 * Updates annotation dependency.

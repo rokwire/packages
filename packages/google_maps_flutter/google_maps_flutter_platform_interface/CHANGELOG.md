@@ -1,3 +1,7 @@
+## NEXT
+
+* Add GoogleMap.OnPoiClickListener
+
 ## 2.2.6
 
 * Updates links for the merge of flutter/plugins into flutter/packages.

@@ -1,3 +1,7 @@
+## NEXT
+
+* Add GoogleMap.OnPoiClickListener
+
 ## 2.2.5
 
 * Updates iOS minimum version in README.
