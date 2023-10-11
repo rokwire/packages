@@ -1,3 +1,7 @@
+## NEXT
+
+* Add GoogleMap.OnPoiClickListener
+
 ## 2.4.1
 
 * Adds pub topics to package metadata.

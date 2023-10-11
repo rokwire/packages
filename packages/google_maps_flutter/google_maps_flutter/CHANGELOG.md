@@ -1,3 +1,7 @@
+## NEXT
+
+* Add GoogleMap.OnPoiClickListener
+
 ## 2.5.0
 
 * Adds implementation for `cloudMapId` parameter to support cloud-based maps styling.
