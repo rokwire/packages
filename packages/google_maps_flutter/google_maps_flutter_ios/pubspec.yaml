@@ -19,7 +19,12 @@ flutter:
 dependencies:
   flutter:
     sdk: flutter
-  google_maps_flutter_platform_interface: ^2.9.0
+  #google_maps_flutter_platform_interface: ^2.9.0
+  google_maps_flutter_platform_interface:
+    git:
+      url: https://github.com/rokwire/packages.git
+      path: packages/google_maps_flutter/google_maps_flutter_platform_interface
+      ref: google_maps_flutter/add-poi-tap-callback-2.9.0
   stream_transform: ^2.0.0
 
 dev_dependencies:
@@ -29,7 +34,12 @@ dev_dependencies:
     sdk: flutter
   mockito: 5.4.4
   pigeon: ^20.0.1
-  plugin_platform_interface: ^2.1.7
+  #plugin_platform_interface: ^2.1.7
+  google_maps_flutter_platform_interface:
+    git:
+      url: https://github.com/rokwire/packages.git
+      path: packages/google_maps_flutter/google_maps_flutter_platform_interface
+      ref: google_maps_flutter/add-poi-tap-callback-2.9.0
 
 topics:
   - google-maps
