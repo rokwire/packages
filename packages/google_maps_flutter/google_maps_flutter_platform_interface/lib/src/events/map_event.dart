@@ -168,6 +168,13 @@ class MapLongPressEvent extends _PositionedMapEvent<void> {
   MapLongPressEvent(int mapId, LatLng position) : super(mapId, position, null);
 }
 
+/// An event fired when a POI is pressed.
+class MapPoiTapEvent extends MapEvent<PointOfInterest> {
+
+  /// Build an PoiTap Event triggered from the map represented by `mapId`.
+  MapPoiTapEvent(super.mapId, super.poi);
+}
+
 /// An event fired when a cluster icon managed by [ClusterManager] is tapped.
 class ClusterTapEvent extends MapEvent<Cluster> {
   /// Build a ClusterTapEvent Event triggered from the map represented by `mapId`.

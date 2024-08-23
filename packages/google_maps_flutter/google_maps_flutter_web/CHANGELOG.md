@@ -1,3 +1,7 @@
+## NEXT
+
+* Add GoogleMap.OnPoiClickListener
+
 ## 0.5.10
 
 * Adds support for heatmap layers.

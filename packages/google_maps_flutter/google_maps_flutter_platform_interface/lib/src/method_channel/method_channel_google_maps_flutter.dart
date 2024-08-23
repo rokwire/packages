@@ -168,6 +168,11 @@ class MethodChannelGoogleMapsFlutter extends GoogleMapsFlutterPlatform {
   }
 
   @override
+  Stream<MapPoiTapEvent> onPoiTap({required int mapId}) {
+    return _events(mapId).whereType<MapPoiTapEvent>();
+  }
+
+  @override
   Stream<ClusterTapEvent> onClusterTap({required int mapId}) {
     return _events(mapId).whereType<ClusterTapEvent>();
   }
@@ -247,6 +252,19 @@ class MethodChannelGoogleMapsFlutter extends GoogleMapsFlutterPlatform {
           mapId,
           LatLng.fromJson(arguments['position'])!,
         ));
+      case 'poi#onTap':
+        final Map<String, Object?> arguments = _getArgumentDictionary(call);
+        final dynamic placeId = arguments['placeId'];
+        final dynamic name = arguments['name'];
+        _mapEventStreamController.add(MapPoiTapEvent(
+          mapId,
+          PointOfInterest(
+            placeId: (placeId != null)? (placeId as String) : '',
+            position: LatLng.fromJson(arguments['position'])!,
+            name: (placeId != null)? (name as String) : '',
+          ),
+        ));
+        break;
       case 'tileOverlay#getTile':
         final Map<String, Object?> arguments = _getArgumentDictionary(call);
         final Map<TileOverlayId, TileOverlay>? tileOverlaysForThisMap =
