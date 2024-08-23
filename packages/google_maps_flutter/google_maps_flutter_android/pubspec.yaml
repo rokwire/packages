@@ -43,6 +43,10 @@ dev_dependencies:
       path: packages/google_maps_flutter/google_maps_flutter_platform_interface
       ref: google_maps_flutter/add-poi-tap-callback-2.9.0
 
+dependency_overrides:
+  google_maps_flutter_platform_interface:
+    path: google_maps_flutter_platform_interface
+
 topics:
   - google-maps
   - google-maps-flutter
