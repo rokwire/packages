@@ -40,6 +40,10 @@ FGMPlatformCameraPosition *FGMGetPigeonCameraPositionForPosition(GMSCameraPositi
                                                zoom:position.zoom];
 }
 
+FGMPlatformPOI *FGMGetPigeonPOIFor(NSString *placeID, NSString *name, CLLocationCoordinate2D location) {
+  return [FGMPlatformPOI makeWithPlaceId:placeID name:name, location: FGMGetPigeonLatLngForCoordinate(location)];
+}
+
 FGMPlatformCluster *FGMGetPigeonCluster(GMUStaticCluster *cluster,
                                         NSString *clusterManagerIdentifier) {
   NSMutableArray *markerIDs = [[NSMutableArray alloc] initWithCapacity:cluster.items.count];

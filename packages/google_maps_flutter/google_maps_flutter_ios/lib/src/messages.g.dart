@@ -557,6 +557,9 @@ class _PigeonCodec extends StandardMessageCodec {
     } else if (value is PlatformZoomRange) {
       buffer.putUint8(145);
       writeValue(buffer, value.encode());
+    } else if (value is PlatformPOI) {
+      buffer.putUint8(146);
+      writeValue(buffer, value.encode());
     } else {
       super.writeValue(buffer, value);
     }
@@ -599,6 +602,8 @@ class _PigeonCodec extends StandardMessageCodec {
         return PlatformTileLayer.decode(readValue(buffer)!);
       case 145:
         return PlatformZoomRange.decode(readValue(buffer)!);
+      case 146:
+        return PlatformPOI.decode(readValue(buffer)!);
       default:
         return super.readValueOfType(type, buffer);
     }
@@ -1256,6 +1261,9 @@ abstract class MapsCallbackApi {
   /// Called when a circle is tapped.
   void onCircleTap(String circleId);
 
+  /// Called when a POI is tapped.
+  void onPOITap(PlatformPOI poi);
+
   /// Called when a marker cluster is tapped.
   void onClusterTap(PlatformCluster cluster);
 
@@ -1572,6 +1580,34 @@ abstract class MapsCallbackApi {
               'Argument for dev.flutter.pigeon.google_maps_flutter_ios.MapsCallbackApi.onCircleTap was null, expected non-null String.');
           try {
             api.onCircleTap(arg_circleId!);
+            return wrapResponse(empty: true);
+          } on PlatformException catch (e) {
+            return wrapResponse(error: e);
+          } catch (e) {
+            return wrapResponse(
+                error: PlatformException(code: 'error', message: e.toString()));
+          }
+        });
+      }
+    }
+    {
+      final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<
+              Object?>(
+          'dev.flutter.pigeon.google_maps_flutter_ios.MapsCallbackApi.onPOITap$messageChannelSuffix',
+          pigeonChannelCodec,
+          binaryMessenger: binaryMessenger);
+      if (api == null) {
+        __pigeon_channel.setMessageHandler(null);
+      } else {
+        __pigeon_channel.setMessageHandler((Object? message) async {
+          assert(message != null,
+              'Argument for dev.flutter.pigeon.google_maps_flutter_ios.MapsCallbackApi.onPOITap was null.');
+          final List<Object?> args = (message as List<Object?>?)!;
+          final PlatformPOI? arg_poi = (args[0] as PlatformPOI?);
+          assert(arg_poi != null,
+              'Argument for dev.flutter.pigeon.google_maps_flutter_ios.MapsCallbackApi.onPOITap was null, expected non-null PlatformPOI.');
+          try {
+            api.onPOITap(arg_poi!);
             return wrapResponse(empty: true);
           } on PlatformException catch (e) {
             return wrapResponse(error: e);

@@ -26,6 +26,9 @@ extern CLLocationCoordinate2D FGMGetCoordinateForPigeonLatLng(FGMPlatformLatLng 
 /// Converts a CLLocationCoordinate2D to its Pigeon representation.
 extern FGMPlatformLatLng *FGMGetPigeonLatLngForCoordinate(CLLocationCoordinate2D coord);
 
+/// Converts a Point of Interest to its Pigeon representation.
+extern FGMPlatformPOI *FGMGetPigeonPOIFor(NSString *placeID, NSString *name, CLLocationCoordinate2D location);
+
 /// Converts a GMSCoordinateBounds to its Pigeon representation.
 extern FGMPlatformLatLngBounds *FGMGetPigeonLatLngBoundsForCoordinateBounds(
     GMSCoordinateBounds *bounds);

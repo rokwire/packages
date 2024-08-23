@@ -457,6 +457,12 @@
                                         }];
 }
 
+- (void)mapView:(GMSMapView*)mapView didTapPOIWithPlaceID:(NSString *)placeID name:(NSString *)name location:(CLLocationCoordinate2D)location {
+  [self.dartCallbackHandler didTapPOI:FGMGetPigeonPointOfInterestFor(placeID, name, coordinate)
+                                        completion:^(FlutterError *_Nullable _){
+                                        }];
+}
+
 - (void)interpretMapOptions:(NSDictionary *)data {
   NSArray *cameraTargetBounds = FGMGetValueOrNilFromDict(data, @"cameraTargetBounds");
   if (cameraTargetBounds) {

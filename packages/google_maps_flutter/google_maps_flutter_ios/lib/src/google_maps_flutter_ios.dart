@@ -202,6 +202,11 @@ class GoogleMapsFlutterIOS extends GoogleMapsFlutterPlatform {
   }
 
   @override
+  Stream<POITapEvent> onPOITap({required int mapId}) {
+    return _events(mapId).whereType<POITapEvent>();
+  }
+
+  @override
   Stream<ClusterTapEvent> onClusterTap({required int mapId}) {
     return _events(mapId).whereType<ClusterTapEvent>();
   }
@@ -554,6 +559,15 @@ class GoogleMapsFlutterIOS extends GoogleMapsFlutterPlatform {
         MapsInspectorApi(messageChannelSuffix: mapId.toString()));
   }
 
+  /// Converts a Pigeon [PlatformPOI] to the corresponding [PointOfInterest].
+  static PointOfInterest poiFromPlatformPOI(PlatformPOI poi) {
+    return PointOfInterest(
+      placeId: poi.placeID,
+      name: poi.name,
+      location: _latLngFromPlatformLatLng(poi.location),
+    );
+  }
+
   /// Converts a Pigeon [PlatformCluster] to the corresponding [Cluster].
   static Cluster clusterFromPlatformCluster(PlatformCluster cluster) {
     return Cluster(
@@ -684,6 +698,14 @@ class HostMapMessageHandler implements MapsCallbackApi {
   @override
   void onCircleTap(String circleId) {
     streamController.add(CircleTapEvent(mapId, CircleId(circleId)));
+  }
+
+  @override
+  void onPOITap(PlatformPOI poi) {
+    streamController.add(POITapEvent(
+      mapId,
+      GoogleMapsFlutterIOS.poiFromPlatformPOI(cluster),
+    ));
   }
 
   @override

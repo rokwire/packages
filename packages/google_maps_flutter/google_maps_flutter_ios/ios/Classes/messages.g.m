@@ -111,6 +111,12 @@ static id GetNullableObjectAtIndex(NSArray<id> *array, NSInteger key) {
 - (NSArray<id> *)toList;
 @end
 
+@interface FGMPlatformPOI ()
++ (FGMPlatformPOI *)fromList:(NSArray<id> *)list;
++ (nullable FGMPlatformPOI *)nullableFromList:(NSArray<id> *)list;
+- (NSArray<id> *)toList;
+@end
+
 @interface FGMPlatformCluster ()
 + (FGMPlatformCluster *)fromList:(NSArray<id> *)list;
 + (nullable FGMPlatformCluster *)nullableFromList:(NSArray<id> *)list;
@@ -420,6 +426,36 @@ static id GetNullableObjectAtIndex(NSArray<id> *array, NSInteger key) {
 }
 @end
 
+@implementation FGMPlatformPOI
++ (instancetype)makeWithPlaceId:(NSString*)placeID
+                           name:(NSString*)name
+                       location:(FGMPlatformLatLng *)location {
+  FGMPlatformPOI *pigeonResult = [[FGMPlatformPOI alloc] init];
+  pigeonResult.placeID = placeID;
+  pigeonResult.name = name;
+  pigeonResult.location = location;
+  return pigeonResult;
+}
++ (FGMPlatformPOI *)fromList:(NSArray<id> *)list {
+  FGMPlatformPOI *pigeonResult = [[FGMPlatformPOI alloc] init];
+  pigeonResult.placeID = GetNullableObjectAtIndex(list, 0);
+  pigeonResult.name = GetNullableObjectAtIndex(list, 1);
+  pigeonResult.location = GetNullableObjectAtIndex(list, 2);
+  return pigeonResult;
+}
++ (nullable FGMPlatformPOI *)nullableFromList:(NSArray<id> *)list {
+  return (list) ? [FGMPlatformPOI fromList:list] : nil;
+}
+- (NSArray<id> *)toList {
+  return @[
+    self.placeID ?: [NSNull null],
+    self.name ?: [NSNull null],
+    self.location ?: [NSNull null],
+  ];
+}
+@end
+
+
 @implementation FGMPlatformCluster
 + (instancetype)makeWithClusterManagerId:(NSString *)clusterManagerId
                                 position:(FGMPlatformLatLng *)position
@@ -594,6 +630,8 @@ static id GetNullableObjectAtIndex(NSArray<id> *array, NSInteger key) {
       return [FGMPlatformTileLayer fromList:[self readValue]];
     case 145:
       return [FGMPlatformZoomRange fromList:[self readValue]];
+    case 146:
+      return [FGMPlatformPOI fromList:[self readValue]];
     default:
       return [super readValueOfType:type];
   }
@@ -654,6 +692,9 @@ static id GetNullableObjectAtIndex(NSArray<id> *array, NSInteger key) {
     [self writeValue:[value toList]];
   } else if ([value isKindOfClass:[FGMPlatformZoomRange class]]) {
     [self writeByte:145];
+    [self writeValue:[value toList]];
+  } else if ([value isKindOfClass:[FGMPlatformPOI class]]) {
+    [self writeByte:146];
     [self writeValue:[value toList]];
   } else {
     [super writeValue:value];
@@ -1573,6 +1614,32 @@ void SetUpFGMMapsApiWithSuffix(id<FlutterBinaryMessenger> binaryMessenger,
                    }
                  }];
 }
+- (void)didTapPOI:(FGMPlatformPOI *)arg_poi
+           completion:(void (^)(FlutterError *_Nullable))completion {
+  NSString *channelName = [NSString
+      stringWithFormat:@"%@%@",
+                       @"dev.flutter.pigeon.google_maps_flutter_ios.MapsCallbackApi.onPOITap",
+                       _messageChannelSuffix];
+  FlutterBasicMessageChannel *channel =
+      [FlutterBasicMessageChannel messageChannelWithName:channelName
+                                         binaryMessenger:self.binaryMessenger
+                                                   codec:FGMGetMessagesCodec()];
+  [channel sendMessage:@[ arg_poi ?: [NSNull null] ]
+                 reply:^(NSArray<id> *reply) {
+                   if (reply != nil) {
+                     if (reply.count > 1) {
+                       completion([FlutterError errorWithCode:reply[0]
+                                                      message:reply[1]
+                                                      details:reply[2]]);
+                     } else {
+                       completion(nil);
+                     }
+                   } else {
+                     completion(createConnectionError(channelName));
+                   }
+                 }];
+}
+
 - (void)didTapCluster:(FGMPlatformCluster *)arg_cluster
            completion:(void (^)(FlutterError *_Nullable))completion {
   NSString *channelName = [NSString

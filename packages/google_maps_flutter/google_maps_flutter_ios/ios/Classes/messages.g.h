@@ -25,6 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
 @class FGMPlatformTileOverlay;
 @class FGMPlatformLatLng;
 @class FGMPlatformLatLngBounds;
+@class FGMPlatformPOI;
 @class FGMPlatformCluster;
 @class FGMPlatformMapConfiguration;
 @class FGMPlatformPoint;
@@ -159,6 +160,18 @@ NS_ASSUME_NONNULL_BEGIN
                         southwest:(FGMPlatformLatLng *)southwest;
 @property(nonatomic, strong) FGMPlatformLatLng *northeast;
 @property(nonatomic, strong) FGMPlatformLatLng *southwest;
+@end
+
+/// Pigeon equivalent of POI.
+@interface FGMPlatformPOI : NSObject
+/// `init` unavailable to enforce nonnull fields, see the `make` class method.
+- (instancetype)init NS_UNAVAILABLE;
++ (instancetype)makeWithPlaceId:(NSString*)placeID
+                           name:(NSString*)name
+                       location:(FGMPlatformLatLng *)location;
+@property(nonatomic, copy) NSString *placeID;
+@property(nonatomic, copy) NSString *name;
+@property(nonatomic, strong) FGMPlatformLatLng *location;
 @end
 
 /// Pigeon equivalent of Cluster.
@@ -371,6 +384,9 @@ extern void SetUpFGMMapsApiWithSuffix(id<FlutterBinaryMessenger> binaryMessenger
 /// Called when a circle is tapped.
 - (void)didTapCircleWithIdentifier:(NSString *)circleId
                         completion:(void (^)(FlutterError *_Nullable))completion;
+/// Called when the map, not a specifc map object, POI is pressed.
+- (void)didTapPOI:(FGMPlatformPOI *)poi
+                    completion:(void (^)(FlutterError *_Nullable))completion;
 /// Called when a marker cluster is tapped.
 - (void)didTapCluster:(FGMPlatformCluster *)cluster
            completion:(void (^)(FlutterError *_Nullable))completion;

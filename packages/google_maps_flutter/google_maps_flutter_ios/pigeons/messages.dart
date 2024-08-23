@@ -146,6 +146,19 @@ class PlatformLatLngBounds {
   final PlatformLatLng southwest;
 }
 
+/// Pigeon equivalent of POI.
+class PlatformPOI {
+  PlatformPOI({
+    required this.placeID,
+    required this.name,
+    required this.location,
+  });
+
+  final String placeID;
+  final String name;
+  final PlatformLatLng location;
+}
+
 /// Pigeon equivalent of Cluster.
 class PlatformCluster {
   PlatformCluster({
@@ -386,6 +399,10 @@ abstract class MapsCallbackApi {
   /// Called when a circle is tapped.
   @ObjCSelector('didTapCircleWithIdentifier:')
   void onCircleTap(String circleId);
+
+  /// Called when a POI is tapped.
+  @ObjCSelector('didTapPOI:')
+  void onPOITap(PlatformPOI poi);
 
   /// Called when a marker cluster is tapped.
   @ObjCSelector('didTapCluster:')
