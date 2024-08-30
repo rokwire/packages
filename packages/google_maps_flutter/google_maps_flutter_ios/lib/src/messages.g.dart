@@ -438,6 +438,36 @@ class PlatformPoint {
   }
 }
 
+/// Pigeon representation of an POI .
+class PlatformPOI {
+  PlatformPOI({
+    required this.placeID,
+    required this.name,
+    required this.position,
+  });
+
+  String placeID;
+  String name;
+  PlatformLatLng position;
+
+  Object encode() {
+    return <Object?>[
+      placeID,
+      name,
+      position,
+    ];
+  }
+
+  static PlatformPOI decode(Object result) {
+    result as List<Object?>;
+    return PlatformPOI(
+      placeID: result[0]! as String,
+      name: result[1]! as String,
+      position: result[2]! as PlatformLatLng,
+    );
+  }
+}
+
 /// Pigeon equivalent of GMSTileLayer properties.
 class PlatformTileLayer {
   PlatformTileLayer({

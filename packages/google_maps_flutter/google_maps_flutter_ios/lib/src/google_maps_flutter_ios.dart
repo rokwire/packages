@@ -202,8 +202,8 @@ class GoogleMapsFlutterIOS extends GoogleMapsFlutterPlatform {
   }
 
   @override
-  Stream<POITapEvent> onPOITap({required int mapId}) {
-    return _events(mapId).whereType<POITapEvent>();
+  Stream<MapPoiTapEvent> onPOITap({required int mapId}) {
+    return _events(mapId).whereType<MapPoiTapEvent>();
   }
 
   @override
@@ -564,7 +564,7 @@ class GoogleMapsFlutterIOS extends GoogleMapsFlutterPlatform {
     return PointOfInterest(
       placeId: poi.placeID,
       name: poi.name,
-      location: _latLngFromPlatformLatLng(poi.location),
+      position: _latLngFromPlatformLatLng(poi.position),
     );
   }
 
@@ -702,9 +702,9 @@ class HostMapMessageHandler implements MapsCallbackApi {
 
   @override
   void onPOITap(PlatformPOI poi) {
-    streamController.add(POITapEvent(
+    streamController.add(MapPoiTapEvent(
       mapId,
-      GoogleMapsFlutterIOS.poiFromPlatformPOI(cluster),
+      GoogleMapsFlutterIOS.poiFromPlatformPOI(poi),
     ));
   }
 

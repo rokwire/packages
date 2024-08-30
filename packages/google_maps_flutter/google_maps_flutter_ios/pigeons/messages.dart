@@ -151,12 +151,12 @@ class PlatformPOI {
   PlatformPOI({
     required this.placeID,
     required this.name,
-    required this.location,
+    required this.position,
   });
 
   final String placeID;
   final String name;
-  final PlatformLatLng location;
+  final PlatformLatLng position;
 }
 
 /// Pigeon equivalent of Cluster.

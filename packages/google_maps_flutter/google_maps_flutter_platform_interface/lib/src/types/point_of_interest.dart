@@ -47,5 +47,8 @@ class PointOfInterest {
   }
 
   @override
-  int get hashCode => placeId.hashCode;
+  int get hashCode =>
+    placeId.hashCode ^
+    name.hashCode ^
+    position.hashCode;
 }

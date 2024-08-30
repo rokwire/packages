@@ -458,7 +458,7 @@
 }
 
 - (void)mapView:(GMSMapView*)mapView didTapPOIWithPlaceID:(NSString *)placeID name:(NSString *)name location:(CLLocationCoordinate2D)location {
-  [self.dartCallbackHandler didTapPOI:FGMGetPigeonPointOfInterestFor(placeID, name, coordinate)
+  [self.dartCallbackHandler didTapPOI:FGMGetPigeonPOIFor(placeID, name, location)
                                         completion:^(FlutterError *_Nullable _){
                                         }];
 }

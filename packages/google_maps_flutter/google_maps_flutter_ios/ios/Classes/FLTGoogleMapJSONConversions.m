@@ -41,7 +41,7 @@ FGMPlatformCameraPosition *FGMGetPigeonCameraPositionForPosition(GMSCameraPositi
 }
 
 FGMPlatformPOI *FGMGetPigeonPOIFor(NSString *placeID, NSString *name, CLLocationCoordinate2D location) {
-  return [FGMPlatformPOI makeWithPlaceId:placeID name:name, location: FGMGetPigeonLatLngForCoordinate(location)];
+  return [FGMPlatformPOI makeWithPlaceId:placeID name:name location: FGMGetPigeonLatLngForCoordinate(location)];
 }
 
 FGMPlatformCluster *FGMGetPigeonCluster(GMUStaticCluster *cluster,
