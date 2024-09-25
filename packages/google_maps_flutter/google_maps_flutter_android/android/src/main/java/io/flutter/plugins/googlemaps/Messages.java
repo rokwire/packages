@@ -1151,6 +1151,107 @@ public class Messages {
   }
 
   /**
+   * Pigeon equivalent of POI.
+   *
+   * <p>Generated class from Pigeon that represents data sent in messages.
+   */
+  public static final class PlatformPOI {
+
+    private @NonNull String placeId;
+    public @NonNull String getPlaceId() {
+      return placeId;
+    }
+    public void setPlaceId(@NonNull String setterArg) { this.placeId = setterArg;}
+
+    private @NonNull String name;
+    public @NonNull String getName() {
+      return name;
+    }
+    public void setName(@NonNull String setterArg) { this.name = setterArg;}
+
+    private @NonNull PlatformLatLng position;
+    public @NonNull PlatformLatLng getPosition() {
+      return position;
+    }
+    public void setPosition(@NonNull PlatformLatLng setterArg) { this.position = setterArg;}
+
+    /** Constructor is non-public to enforce null safety; use Builder. */
+    PlatformPOI() {}
+
+    @Override
+    public boolean equals(Object o) {
+      if (this == o) {
+        return true;
+      }
+      if (o == null || getClass() != o.getClass()) {
+        return false;
+      }
+      PlatformPOI that = (PlatformPOI) o;
+      return name.equals(that.name) && placeId.equals(that.placeId) && position.equals(that.position);
+    }
+
+    @Override
+    public int hashCode() {
+      return Objects.hash(placeId, name, position);
+    }
+
+    public static final class Builder {
+
+      private @Nullable String placeId;
+
+      @CanIgnoreReturnValue
+      public @NonNull Builder setPlaceId(@NonNull String setterArg) {
+        this.placeId = setterArg;
+        return this;
+      }
+
+      private @Nullable String name;
+
+      @CanIgnoreReturnValue
+      public @NonNull Builder setName(@NonNull String setterArg) {
+        this.name = setterArg;
+        return this;
+      }
+
+      private @Nullable PlatformLatLng position;
+
+      @CanIgnoreReturnValue
+      public @NonNull Builder setPosition(@NonNull PlatformLatLng setterArg) {
+        this.position = setterArg;
+        return this;
+      }
+
+      public @NonNull PlatformPOI build() {
+        PlatformPOI pigeonReturn = new PlatformPOI();
+        pigeonReturn.setPlaceId(placeId);
+        pigeonReturn.setName(name);
+        pigeonReturn.setPosition(position);
+        return pigeonReturn;
+      }
+    }
+
+    @NonNull
+    ArrayList<Object> toList() {
+      ArrayList<Object> toListResult = new ArrayList<Object>(3);
+      toListResult.add(placeId);
+      toListResult.add(name);
+      toListResult.add(position);
+      return toListResult;
+    }
+
+    static @NonNull PlatformPOI fromList(@NonNull ArrayList<Object> __pigeon_list) {
+      PlatformPOI pigeonResult = new PlatformPOI();
+      Object placeId = __pigeon_list.get(0);
+      pigeonResult.setPlaceId((String) placeId);
+      Object name = __pigeon_list.get(1);
+      pigeonResult.setName((String) name);
+      Object position = __pigeon_list.get(2);
+      pigeonResult.setPosition((PlatformLatLng) position);
+      return pigeonResult;
+    }
+  }
+
+  /**
    * Pigeon equivalent of Cluster.
    *
    * <p>Generated class from Pigeon that represents data sent in messages.
@@ -2684,6 +2785,32 @@ public class Messages {
           new BasicMessageChannel<>(binaryMessenger, channelName, getCodec());
       channel.send(
           new ArrayList<Object>(Collections.singletonList(positionArg)),
+          channelReply -> {
+            if (channelReply instanceof List) {
+              List<Object> listReply = (List<Object>) channelReply;
+              if (listReply.size() > 1) {
+                result.error(
+                    new FlutterError(
+                        (String) listReply.get(0),
+                        (String) listReply.get(1),
+                        (String) listReply.get(2)));
+              } else {
+                result.success();
+              }
+            } else {
+              result.error(createConnectionError(channelName));
+            }
+          });
+    }
+    /** Called when a poi is tapped. */
+    public void onPOITap(@NonNull PlatformPOI poiArg, @NonNull VoidResult result) {
+      final String channelName =
+          "dev.flutter.pigeon.google_maps_flutter_android.MapsCallbackApi.onPOITap"
+              + messageChannelSuffix;
+      BasicMessageChannel<Object> channel =
+          new BasicMessageChannel<>(binaryMessenger, channelName, getCodec());
+      channel.send(
+          new ArrayList<Object>(Collections.singletonList(poiArg)),
           channelReply -> {
             if (channelReply instanceof List) {
               List<Object> listReply = (List<Object>) channelReply;

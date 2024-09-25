@@ -26,6 +26,7 @@ import com.google.android.gms.maps.model.Gap;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.PatternItem;
+import com.google.android.gms.maps.model.PointOfInterest;
 import com.google.android.gms.maps.model.RoundCap;
 import com.google.android.gms.maps.model.SquareCap;
 import com.google.android.gms.maps.model.Tile;
@@ -439,6 +440,18 @@ class Convert {
 
   static Object latLngToJson(LatLng latLng) {
     return Arrays.asList(latLng.latitude, latLng.longitude);
+  }
+
+  static Messages.PlatformPOI poiToPigeon(PointOfInterest poi) {
+    return new Messages.PlatformPOI.Builder()
+        .setPlaceId(poi.placeId)
+        .setName(poi.name)
+        .setPosition(latLngToPigeon(poi.latLng))
+        .build();
+  }
+
+  static PointOfInterest poiFromPigeon(Messages.PlatformPOI poi) {
+    return new PointOfInterest(latLngFromPigeon(poi.getPosition()), poi.getPlaceId(), poi.getName());
   }
 
   static Messages.PlatformLatLng latLngToPigeon(LatLng latLng) {

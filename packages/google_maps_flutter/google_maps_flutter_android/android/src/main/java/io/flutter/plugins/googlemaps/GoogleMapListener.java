@@ -17,4 +17,5 @@ interface GoogleMapListener
         GoogleMap.OnCircleClickListener,
         GoogleMap.OnMapClickListener,
         GoogleMap.OnMapLongClickListener,
+        GoogleMap.OnPoiClickListener,
         GoogleMap.OnMarkerDragListener {}

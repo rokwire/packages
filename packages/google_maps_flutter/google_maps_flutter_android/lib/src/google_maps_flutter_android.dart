@@ -216,6 +216,11 @@ class GoogleMapsFlutterAndroid extends GoogleMapsFlutterPlatform {
   }
 
   @override
+  Stream<MapPoiTapEvent> onPOITap({required int mapId}) {
+    return _events(mapId).whereType<MapPoiTapEvent>();
+  }
+
+  @override
   Stream<ClusterTapEvent> onClusterTap({required int mapId}) {
     return _events(mapId).whereType<ClusterTapEvent>();
   }
@@ -804,6 +809,18 @@ class HostMapMessageHandler implements MapsCallbackApi {
   @override
   void onCircleTap(String circleId) {
     streamController.add(CircleTapEvent(mapId, CircleId(circleId)));
+  }
+
+  @override
+  void onPOITap(PlatformPOI poi) {
+    streamController.add(MapPoiTapEvent(
+      mapId,
+      PointOfInterest(
+        placeId: poi.placeID,
+        name: poi.name,
+        position: _latLngFromPlatformLatLng(poi.position)
+      ),
+    ));
   }
 
   @override
