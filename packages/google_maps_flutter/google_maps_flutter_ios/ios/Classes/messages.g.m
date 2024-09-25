@@ -1618,7 +1618,7 @@ void SetUpFGMMapsApiWithSuffix(id<FlutterBinaryMessenger> binaryMessenger,
            completion:(void (^)(FlutterError *_Nullable))completion {
   NSString *channelName = [NSString
       stringWithFormat:@"%@%@",
-                       @"dev.flutter.pigeon.google_maps_flutter_ios.MapsCallbackApi.onPOITap",
+                       @"dev.flutter.pigeon.google_maps_flutter_ios.MapsCallbackApi.onPoiTap",
                        _messageChannelSuffix];
   FlutterBasicMessageChannel *channel =
       [FlutterBasicMessageChannel messageChannelWithName:channelName

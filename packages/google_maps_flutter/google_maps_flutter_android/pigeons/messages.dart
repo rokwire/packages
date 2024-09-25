@@ -369,7 +369,7 @@ abstract class MapsCallbackApi {
   void onPolylineTap(String polylineId);
 
   /// Called when a poi is tapped.
-  void onPOITap(PlatformPOI poi);
+  void onPoiTap(PlatformPOI poi);
 
   /// Called to get data for a map tile.
   @async

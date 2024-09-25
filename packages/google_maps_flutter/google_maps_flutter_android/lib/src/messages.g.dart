@@ -1317,7 +1317,7 @@ abstract class MapsCallbackApi {
   void onCircleTap(String circleId);
 
   /// Called when a POI is tapped.
-  void onPOITap(PlatformPOI poi);
+  void onPoiTap(PlatformPOI poi);
 
   /// Called when a marker cluster is tapped.
   void onClusterTap(PlatformCluster cluster);
@@ -1648,7 +1648,7 @@ abstract class MapsCallbackApi {
     {
       final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<
               Object?>(
-          'dev.flutter.pigeon.google_maps_flutter_android.MapsCallbackApi.onPOITap$messageChannelSuffix',
+          'dev.flutter.pigeon.google_maps_flutter_android.MapsCallbackApi.onPoiTap$messageChannelSuffix',
           pigeonChannelCodec,
           binaryMessenger: binaryMessenger);
       if (api == null) {
@@ -1656,13 +1656,13 @@ abstract class MapsCallbackApi {
       } else {
         __pigeon_channel.setMessageHandler((Object? message) async {
           assert(message != null,
-              'Argument for dev.flutter.pigeon.google_maps_flutter_android.MapsCallbackApi.onPOITap was null.');
+              'Argument for dev.flutter.pigeon.google_maps_flutter_android.MapsCallbackApi.onPoiTap was null.');
           final List<Object?> args = (message as List<Object?>?)!;
           final PlatformPOI? arg_poi = (args[0] as PlatformPOI?);
           assert(arg_poi != null,
-              'Argument for dev.flutter.pigeon.google_maps_flutter_android.MapsCallbackApi.onPOITap was null, expected non-null PlatformPOI.');
+              'Argument for dev.flutter.pigeon.google_maps_flutter_android.MapsCallbackApi.onPoiTap was null, expected non-null PlatformPOI.');
           try {
-            api.onPOITap(arg_poi!);
+            api.onPoiTap(arg_poi!);
             return wrapResponse(empty: true);
           } on PlatformException catch (e) {
             return wrapResponse(error: e);

@@ -402,7 +402,7 @@ abstract class MapsCallbackApi {
 
   /// Called when a POI is tapped.
   @ObjCSelector('didTapPOI:')
-  void onPOITap(PlatformPOI poi);
+  void onPoiTap(PlatformPOI poi);
 
   /// Called when a marker cluster is tapped.
   @ObjCSelector('didTapCluster:')

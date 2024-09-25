@@ -308,7 +308,7 @@ class GoogleMapController
 
   @Override
   public void onPoiClick(PointOfInterest poi) {
-    flutterApi.onPOITap(Convert.poiToPigeon(poi), new NoOpVoidResult());
+    flutterApi.onPoiTap(Convert.poiToPigeon(poi), new NoOpVoidResult());
   }
 
   @Override

@@ -1923,6 +1923,9 @@ public class Messages {
       } else if (value instanceof PlatformRendererType) {
         stream.write(146);
         writeValue(stream, value == null ? null : ((PlatformRendererType) value).index);
+      } else if (value instanceof PlatformPOI) {
+        stream.write(147);
+        writeValue(stream, ((PlatformPOI) value).toList());
       } else {
         super.writeValue(stream, value);
       }
@@ -2803,9 +2806,9 @@ public class Messages {
           });
     }
     /** Called when a poi is tapped. */
-    public void onPOITap(@NonNull PlatformPOI poiArg, @NonNull VoidResult result) {
+    public void onPoiTap(@NonNull PlatformPOI poiArg, @NonNull VoidResult result) {
       final String channelName =
-          "dev.flutter.pigeon.google_maps_flutter_android.MapsCallbackApi.onPOITap"
+          "dev.flutter.pigeon.google_maps_flutter_android.MapsCallbackApi.onPoiTap"
               + messageChannelSuffix;
       BasicMessageChannel<Object> channel =
           new BasicMessageChannel<>(binaryMessenger, channelName, getCodec());
